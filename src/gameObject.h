@@ -13,7 +13,7 @@ class gameObject {
 public:
     virtual void init() = 0;
     inline std::string getID() const {return id;}
-    inline void setID(std::string _id) {id = _id;}
+    inline void setID(std::string _id) {id += _id;}
     inline float getX() const {return posX;}
     inline void setX(float _x) {
         posX = _x;
@@ -24,13 +24,22 @@ public:
         posY = _y;
         circle.setPosition(posX, posY);
     }
+    inline sf::Vector2f getXY() const {return {posX, posY};}
     inline void setXY(float _x, float _y) {
         posX = _x;
         posY = _y;
         circle.setPosition(posX, posY);
     }
+    inline sf::Vector2f getStartPos() const {return startPos;}
+    inline void setStartPos(float _x, float _y) {
+        startPos = {_x, _y};
+        posX = _x;
+        posY = _y;
+        circle.setPosition(startPos);
+    }
+    inline float getRadius() const {return circle.getRadius();}
     inline void setRadius(float _radius) {circle.setRadius(_radius);}
-    inline sf::CircleShape getcircle() const {return circle;}
+    inline sf::CircleShape getCircle() const {return circle;}
     //inline void setcircle(sf::circleangleShape _circle) {circle = _circle;}
     inline std::pair<float, float> const getAnchor() {return std::pair<float, float> (aX, aY);}
     inline float getAnchorX() {return aX;}
@@ -59,10 +68,6 @@ public:
     inline void setWindow(sf::RenderWindow* _window) {renWin = _window;}
     virtual void render() {renWin->draw(circle);}
     virtual void update(sf::Time time) = 0;
-//    inline bool isCollide(sf::circleangleShape _circle) {
-//        return circle.getGlobalBounds().intersects(_circle.getGlobalBounds());
-//    };
-
 protected:
     sf::RenderWindow* renWin;
     eState state;
@@ -72,6 +77,7 @@ private:
     float posY;
     float aX;
     float aY;
+    sf::Vector2f startPos;
     sf::CircleShape circle;
     MainController* mController;
 };
