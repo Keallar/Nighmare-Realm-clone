@@ -16,6 +16,8 @@ public:
     void render();
     void createField();
     void createUnits();
+    void createExUnits();
+    void isMouseOverObject();
     void handleEvents(sf::Mouse::Button button, bool isPressed);
 private:
     sf::RenderWindow* renWindow;
@@ -23,6 +25,7 @@ private:
     std::vector<unit*> unitsYellow;
     std::vector<unit*> unitsRed;
     std::vector<unit*> unitsBlue;
+    std::vector<unit*> unitsEx;
     gameController* gController;
     objectsFactory* oFactory;
 };
