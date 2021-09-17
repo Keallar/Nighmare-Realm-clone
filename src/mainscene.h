@@ -17,8 +17,7 @@ public:
     void createField();
     void createUnits();
     void createExUnits();
-    void isMouseOverObject();
-    void handleEvents(sf::Mouse::Button button, bool isPressed);
+    void handleEvents(sf::Mouse::Button button);
 private:
     sf::RenderWindow* renWindow;
     std::map<std::string, sf::RectangleShape*> cells;

@@ -40,6 +40,7 @@ public:
     inline float getRadius() const {return circle.getRadius();}
     inline void setRadius(float _radius) {circle.setRadius(_radius);}
     inline sf::CircleShape getCircle() const {return circle;}
+    inline void setCircle(const sf::CircleShape _circle) {circle = _circle;}
     inline std::pair<float, float> const getAnchor() {return std::pair<float, float> (aX, aY);}
     inline float getAnchorX() {return aX;}
     inline float getAnchorY() {return aY;}

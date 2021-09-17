@@ -31,7 +31,15 @@ void mainScene::init() {
 }
 
 void mainScene::update(sf::Time deltaTime) {
-
+    for (auto yUnit : unitsYellow) {
+        yUnit->update(deltaTime);
+    }
+    for (auto rUnit : unitsRed) {
+        rUnit->update(deltaTime);
+    }
+    for (auto bUnit : unitsBlue) {
+        bUnit->update(deltaTime);
+    }
 }
 
 void mainScene::render() {
@@ -121,9 +129,11 @@ void mainScene::createUnits() {
             if (!yellIsFull) {
                 auto yellUnit = oFactory->createYellowUnit();
                 yellUnit->setWindow(renWindow);
+                yellUnit->setIsMoving(true);
                 auto posX = 300.f + 130.f * i * 2 + 2.f;
                 auto posY = 200.f + 130.f * j + 2.f;
                 yellUnit->setStartPos(posX, posY);
+                yellUnit->setID(std::to_string(i) + std::to_string(j));
                 unitsYellow.push_back(yellUnit);
                 isCreated = true;
             }
@@ -135,9 +145,11 @@ void mainScene::createUnits() {
             if (!redIsFull) {
                 auto redUnit = oFactory->createRedUnit();
                 redUnit->setWindow(renWindow);
+                redUnit->setIsMoving(true);
                 auto posX = 300.f + 130.f * i * 2 + 2.f;
                 auto posY = 200.f + 130.f * j + 2.f;
                 redUnit->setStartPos(posX, posY);
+                redUnit->setID(std::to_string(i) + std::to_string(j));
                 unitsRed.push_back(redUnit);
                 isCreated = true;
             }
@@ -149,9 +161,11 @@ void mainScene::createUnits() {
             if (!blueIsFull) {
                 auto blueUnit = oFactory->createBlueUnit();
                 blueUnit->setWindow(renWindow);
+                blueUnit->setIsMoving(true);
                 auto posX = 300.f + 130.f * i * 2 + 2.f;
                 auto posY = 200.f + 130.f * j + 2.f;
                 blueUnit->setStartPos(posX, posY);
+                blueUnit->setID(std::to_string(i) + std::to_string(j));
                 unitsBlue.push_back(blueUnit);
                 isCreated = true;
             }
@@ -185,19 +199,24 @@ void mainScene::createExUnits() {
             tempUnit = oFactory->createBlueUnit();
         }
         tempUnit->setWindow(renWindow);
+        tempUnit->setIsMoving(false);
         auto posX = 300.f + 130.f * numEx.at(i) * 2.f + 2.f;
         auto posY = 30.f;
         tempUnit->setStartPos(posX, posY);
+        tempUnit->setID(std::to_string(i));
         unitsBlue.push_back(tempUnit);
     }
 }
 
-void mainScene::handleEvents(sf::Mouse::Button button, bool isPressed){
-    isMouseOverObject();
-}
-
-void mainScene::isMouseOverObject() {
-    auto mousePos = sf::Mouse::getPosition(*renWindow);
-    std::cout << mousePos.x << " " << mousePos.y << std::endl;
+void mainScene::handleEvents(sf::Mouse::Button button){
+    for (auto yellUnit : unitsYellow) {
+        yellUnit->checkMouse(button);
+    }
+    for (auto redUnit : unitsRed) {
+        redUnit->checkMouse(button);
+    }
+    for (auto blueUnit : unitsBlue) {
+        blueUnit->checkMouse(button);
+    }
 }
 

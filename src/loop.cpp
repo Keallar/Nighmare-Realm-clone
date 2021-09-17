@@ -60,6 +60,6 @@ void loop::processEvents() {
 }
 
 void loop::handlePlayerInput(sf::Mouse::Button button, bool isPressed) {
-    scene.handleEvents(button, isPressed);
+    scene.handleEvents(button);
 }
 
