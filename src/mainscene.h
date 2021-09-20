@@ -19,6 +19,9 @@ public:
     void createExUnits();
     void handleEvents(sf::Mouse::Button button);
 private:
+    const int COUNT_OF_CELLS = 5;
+    const int COUNT_OF_UNITS = 5;
+
     sf::RenderWindow* renWindow;
     std::map<std::string, sf::RectangleShape*> cells;
     std::vector<unit*> unitsYellow;

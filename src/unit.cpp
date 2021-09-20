@@ -48,6 +48,7 @@ void unit::checkMouse(sf::Mouse::Button button) {
         auto isMouseOverObj = unitCirc.getGlobalBounds().contains(mousePos);
         if (isMouseOverObj) {
             isPressed = true;
+            std::cout << mousePos.x << " " << mousePos.y << std::endl;
             return;
         }
         isPressed = false;
@@ -122,13 +123,13 @@ void unit::checkBottom() {
 }
 
 void unit::moveToLeft(float motion) {
-//    if (nextPosX <= 200.f) {
-//        moveOver = false;
-//        nextPosX = 0;
-//        dir = eDirection::Nowhere;
-//        return;
-//    }
     if (dir == eDirection::Left) {
+        if (nextPosX <= 172.f) {
+            moveOver = false;
+            nextPosX = 0;
+            dir = eDirection::Nowhere;
+            return;
+        }
         if (moveOver) {
             auto curUnitPosX = getX();
             if (curUnitPosX > nextPosX) {
@@ -145,13 +146,13 @@ void unit::moveToLeft(float motion) {
 }
 
 void unit::moveToRight(float motion) {
-//    if (nextPosX >= 950.f) {
-//        moveOver = false;
-//        nextPosX = 0;
-//        dir = eDirection::Nowhere;
-//        return;
-//    }
     if (dir == eDirection::Right) {
+        if (nextPosX >= 952.f) {
+            moveOver = false;
+            nextPosX = 0;
+            dir = eDirection::Nowhere;
+            return;
+        }
         if (moveOver) {
             auto curUnitPosX = getX();
             if (curUnitPosX < nextPosX) {
@@ -168,13 +169,13 @@ void unit::moveToRight(float motion) {
 }
 
 void unit::moveToUp(float motion) {
-//    if (nextPosY <= 150.f) {
-//        moveOver = false;
-//        nextPosY = 0;
-//        dir = eDirection::Nowhere;
-//        return;
-//    }
     if(dir == eDirection::Up) {
+        if (nextPosY <= 72.f) {
+            moveOver = false;
+            nextPosY = 0;
+            dir = eDirection::Nowhere;
+            return;
+        }
         if (moveOver) {
             auto curUnitPosY = getY();
             if (curUnitPosY > nextPosY) {
@@ -191,13 +192,13 @@ void unit::moveToUp(float motion) {
 }
 
 void unit::moveToBottom(float motion) {
-//    if (nextPosY >= 820.f) {
-//        moveOver = false;
-//        nextPosY = 0;
-//        dir = eDirection::Nowhere;
-//        return;
-//    }
     if (dir == eDirection::Bottom) {
+        if (nextPosY >= 820.f) {
+            moveOver = false;
+            nextPosY = 0;
+            dir = eDirection::Nowhere;
+            return;
+        }
         if (moveOver) {
             auto curUnitPosY = getY();
             if (curUnitPosY < nextPosY) {

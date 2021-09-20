@@ -5,9 +5,6 @@
 #include <ctime>
 #include <algorithm>
 
-const int COUNT_OF_CELLS = 5;
-const int COUNT_OF_UNITS = 5;
-
 mainScene::mainScene(sf::RenderWindow* window)
     : renWindow(window) {
 }
@@ -61,8 +58,8 @@ void mainScene::render() {
 }
 
 void mainScene::createField() {
-    for (size_t i = 0; i < 5; ++i) {
-        for (size_t j = 0; j < 5; ++j) {
+    for (size_t i = 0; i < COUNT_OF_CELLS; ++i) {
+        for (size_t j = 0; j < COUNT_OF_CELLS; ++j) {
             auto tempCell = new sf::RectangleShape{};
             sf::Vector2f cellSize {130.0f, 130.0f};
             sf::Vector2f cellPos {300.0f + (130.0f * i), 200.0f + (130.f * j)};
@@ -94,7 +91,7 @@ void mainScene::createField() {
         }
     }
 
-    for (size_t k = 0; k < 5; ++k) {
+    for (size_t k = 0; k < COUNT_OF_CELLS; ++k) {
         auto tempCell = new sf::RectangleShape{};
         sf::Vector2f cellSize {130.0f, 130.0f};
         sf::Vector2f cellPos {300.0f + (130.0f * k), 30.0f};
@@ -116,14 +113,14 @@ void mainScene::createUnits() {
     bool blueIsFull {false};
     bool isCreated {false};
     bool allIsCreated {false};
-    srand(time(0));
+    srand(static_cast<unsigned int>(time(nullptr)));
     int numUnit = 0;
     int i = 0;
     int j = 0;
     while (!allIsCreated)  {
         numUnit = std::rand() % 3;
         if (numUnit == 0) {
-            if (unitsYellow.size() == 5) {
+            if (unitsYellow.size() == COUNT_OF_UNITS) {
                 yellIsFull = true;
             }
             if (!yellIsFull) {
@@ -134,12 +131,13 @@ void mainScene::createUnits() {
                 auto posY = 200.f + 130.f * j + 2.f;
                 yellUnit->setStartPos(posX, posY);
                 yellUnit->setID(std::to_string(i) + std::to_string(j));
+                yellUnit->setController(gController);
                 unitsYellow.push_back(yellUnit);
                 isCreated = true;
             }
         }
         if (numUnit == 1) {
-            if (unitsRed.size() == 5) {
+            if (unitsRed.size() == COUNT_OF_UNITS) {
                 redIsFull = true;
             }
             if (!redIsFull) {
@@ -150,12 +148,13 @@ void mainScene::createUnits() {
                 auto posY = 200.f + 130.f * j + 2.f;
                 redUnit->setStartPos(posX, posY);
                 redUnit->setID(std::to_string(i) + std::to_string(j));
+                redUnit->setController(gController);
                 unitsRed.push_back(redUnit);
                 isCreated = true;
             }
         }
         if (numUnit == 2) {
-            if (unitsBlue.size() == 5) {
+            if (unitsBlue.size() == COUNT_OF_UNITS) {
                 blueIsFull = true;
             }
             if (!blueIsFull) {
@@ -166,13 +165,14 @@ void mainScene::createUnits() {
                 auto posY = 200.f + 130.f * j + 2.f;
                 blueUnit->setStartPos(posX, posY);
                 blueUnit->setID(std::to_string(i) + std::to_string(j));
+                blueUnit->setController(gController);
                 unitsBlue.push_back(blueUnit);
                 isCreated = true;
             }
         }
         if (isCreated){
             j++;
-            if (j == 5) {
+            if (j == COUNT_OF_UNITS) {
                 i++;
                 j = 0;
             }
@@ -204,7 +204,7 @@ void mainScene::createExUnits() {
         auto posY = 30.f;
         tempUnit->setStartPos(posX, posY);
         tempUnit->setID(std::to_string(i));
-        unitsBlue.push_back(tempUnit);
+        unitsEx.push_back(tempUnit);
     }
 }
 
