@@ -24,6 +24,9 @@ void mainScene::init() {
     gController = new gameController{};
     createField();
     createUnits();
+    gController->addUnits(unitsYellow);
+    gController->addUnits(unitsRed);
+    gController->addUnits(unitsBlue);
     createExUnits();
 }
 
@@ -68,21 +71,27 @@ void mainScene::createField() {
             tempCell->setFillColor(sf::Color::White);
             if (i == 1 && j == 0) {
                 tempCell->setFillColor(sf::Color(105, 105, 105));
+                gController->addBlockedCells(cellPos, cellSize);
             }
             if (i == 3 && j == 0) {
                 tempCell->setFillColor(sf::Color(105, 105, 105));
+                gController->addBlockedCells(cellPos, cellSize);
             }
             if (i == 1 && j == 2) {
                 tempCell->setFillColor(sf::Color(105, 105, 105));
+                gController->addBlockedCells(cellPos, cellSize);
             }
             if (i == 3 && j == 2) {
                 tempCell->setFillColor(sf::Color(105, 105, 105));
+                gController->addBlockedCells(cellPos, cellSize);
             }
             if (i == 1 && j == 4) {
                 tempCell->setFillColor(sf::Color(105, 105, 105));
+                gController->addBlockedCells(cellPos, cellSize);
             }
             if (i == 3 && j == 4) {
                 tempCell->setFillColor(sf::Color(105, 105, 105));
+                gController->addBlockedCells(cellPos, cellSize);
             }
             tempCell->setOutlineColor(sf::Color::Black);
             tempCell->setOutlineThickness(2.0f);
@@ -103,8 +112,7 @@ void mainScene::createField() {
         }
         tempCell->setOutlineColor(sf::Color::Black);
         tempCell->setOutlineThickness(2.0f);
-        cells.insert(std::make_pair("cellEx " + std::to_string(k), tempCell));
-    }
+        cells.insert(std::make_pair("cellEx " + std::to_string(k), tempCell));    }
 }
 
 void mainScene::createUnits() {
@@ -127,8 +135,8 @@ void mainScene::createUnits() {
                 auto yellUnit = oFactory->createYellowUnit();
                 yellUnit->setWindow(renWindow);
                 yellUnit->setIsMoving(true);
-                auto posX = 300.f + 130.f * i * 2 + 2.f;
-                auto posY = 200.f + 130.f * j + 2.f;
+                auto posX = 300 + 130 * i * 2 + 2;
+                auto posY = 200 + 130 * j + 2;
                 yellUnit->setStartPos(posX, posY);
                 yellUnit->setID(std::to_string(i) + std::to_string(j));
                 yellUnit->setController(gController);
@@ -144,8 +152,8 @@ void mainScene::createUnits() {
                 auto redUnit = oFactory->createRedUnit();
                 redUnit->setWindow(renWindow);
                 redUnit->setIsMoving(true);
-                auto posX = 300.f + 130.f * i * 2 + 2.f;
-                auto posY = 200.f + 130.f * j + 2.f;
+                auto posX = 300 + 130 * i * 2 + 2;
+                auto posY = 200 + 130 * j + 2;
                 redUnit->setStartPos(posX, posY);
                 redUnit->setID(std::to_string(i) + std::to_string(j));
                 redUnit->setController(gController);
@@ -161,8 +169,8 @@ void mainScene::createUnits() {
                 auto blueUnit = oFactory->createBlueUnit();
                 blueUnit->setWindow(renWindow);
                 blueUnit->setIsMoving(true);
-                auto posX = 300.f + 130.f * i * 2 + 2.f;
-                auto posY = 200.f + 130.f * j + 2.f;
+                auto posX = 300 + 130 * i * 2 + 2;
+                auto posY = 200 + 130 * j + 2;
                 blueUnit->setStartPos(posX, posY);
                 blueUnit->setID(std::to_string(i) + std::to_string(j));
                 blueUnit->setController(gController);

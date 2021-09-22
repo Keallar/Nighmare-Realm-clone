@@ -15,7 +15,6 @@ unit *objectsFactory::createYellowUnit() {
     yellUnit->setColor(sf::Color::Yellow);
     yellUnit->setID("yellow_");
     yellUnit->setRadius(63);
-    yellUnit->setAnchor(0.5f, 0.5f);
     auto tempCirc = yellUnit->getCircle();
     tempCirc.setOutlineColor(sf::Color::Black);
     tempCirc.setOutlineThickness(1.0f);
@@ -29,7 +28,6 @@ unit *objectsFactory::createRedUnit() {
     redUnit->setColor(sf::Color::Red);
     redUnit->setID("red_");
     redUnit->setRadius(63);
-    redUnit->setAnchor(0.5f, 0.5f);
     auto tempCirc = redUnit->getCircle();
     tempCirc.setOutlineColor(sf::Color::Black);
     tempCirc.setOutlineThickness(1.0f);
@@ -43,7 +41,6 @@ unit *objectsFactory::createBlueUnit() {
     blueUnit->setColor(sf::Color::Blue);
     blueUnit->setID("blue_");
     blueUnit->setRadius(63);
-    blueUnit->setAnchor(0.5f, 0.5f);
     auto tempCirc = blueUnit->getCircle();
     tempCirc.setOutlineColor(sf::Color::Black);
     tempCirc.setOutlineThickness(1.0f);

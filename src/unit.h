@@ -16,6 +16,10 @@ public:
     void update(sf::Time time) override;
     void reset();
     void moving(sf::Time time);
+    int getNextPosX();
+    int getNextPosY();
+    int getPrevPosX();
+    int getPrevPosY();
     void checkLeft();
     void checkRight();
     void checkUp();
@@ -34,8 +38,10 @@ private:
     bool isMoving;
     bool moveOver;
     float speed;
-    float nextPosX;
-    float nextPosY;
+    int nextPosX;
+    int prevPosX; //???
+    int prevPosY;
+    int nextPosY;
     eDirection dir;
 };
 

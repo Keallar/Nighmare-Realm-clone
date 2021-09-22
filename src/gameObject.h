@@ -42,8 +42,8 @@ public:
     inline sf::CircleShape getCircle() const {return circle;}
     inline void setCircle(const sf::CircleShape _circle) {circle = _circle;}
     inline std::pair<float, float> const getAnchor() {return std::pair<float, float> (aX, aY);}
-    inline float getAnchorX() {return aX;}
-    inline float getAnchorY() {return aY;}
+    inline float getAnchorX() const {return aX;}
+    inline float getAnchorY() const {return aY;}
     inline void setAnchor(float _aX, float _aY) {
         aX = _aX;
         aY = _aY;
@@ -61,10 +61,10 @@ public:
     inline MainController* getController() {return mController;}
     inline sf::Color getColor() {return circle.getFillColor();}
     inline void setColor(sf::Color _color) {circle.setFillColor(_color);}
-    inline float getHeight() {return circle.getLocalBounds().height;}
-    inline float getWidth() {return circle.getLocalBounds().width;}
-    inline float getLeft() {return circle.getLocalBounds().left;}
-    inline float getTop() {return circle.getLocalBounds().top;}
+    inline float getHeight() const {return circle.getLocalBounds().height;}
+    inline float getWidth() const {return circle.getLocalBounds().width;}
+    inline float getLeft() const {return circle.getLocalBounds().left;}
+    inline float getTop() const {return circle.getLocalBounds().top;}
     inline void setWindow(sf::RenderWindow* _window) {renWin = _window;}
     virtual void render() {renWin->draw(circle);}
     virtual void update(sf::Time time) = 0;
