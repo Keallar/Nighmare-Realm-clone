@@ -132,9 +132,9 @@ void unit::checkBottom() {
 
 void unit::moveToLeft(float motion) {
     if (dir == eDirection::Left) {
-        //auto isCollBlockCell = dynamic_cast<gameController*>(getController())->collWithBlockedCell(this);
+        auto isCollBlockCell = dynamic_cast<gameController*>(getController())->collWithBlockedCell(this);
         auto isCollOtherUnit = dynamic_cast<gameController*>(getController())->collWithOtherUnit(this);
-        if (/*isCollBlockCell ||*/ isCollOtherUnit) {
+        if (isCollBlockCell || isCollOtherUnit) {
             moveOver = false;
             setX(prevPosX);
             prevPosX = 0;
@@ -167,7 +167,8 @@ void unit::moveToLeft(float motion) {
 void unit::moveToRight(float motion) {
     if (dir == eDirection::Right) {
         auto isCollBlockCell = dynamic_cast<gameController*>(getController())->collWithBlockedCell(this);
-        if (isCollBlockCell) {
+        auto isCollOtherUnit = dynamic_cast<gameController*>(getController())->collWithOtherUnit(this);
+        if (isCollBlockCell || isCollOtherUnit) {
             moveOver = false;
             setX(prevPosX);
             prevPosX = 0;
@@ -200,7 +201,8 @@ void unit::moveToRight(float motion) {
 void unit::moveToUp(float motion) {
     if(dir == eDirection::Up) {
         auto isCollBlockCell = dynamic_cast<gameController*>(getController())->collWithBlockedCell(this);
-        if (isCollBlockCell) {
+        auto isCollOtherUnit = dynamic_cast<gameController*>(getController())->collWithOtherUnit(this);
+        if (isCollBlockCell || isCollOtherUnit) {
             moveOver = false;
             setY(prevPosY);
             prevPosY = 0;
@@ -233,7 +235,8 @@ void unit::moveToUp(float motion) {
 void unit::moveToBottom(float motion) {
     if (dir == eDirection::Bottom) {
         auto isCollBlockCell = dynamic_cast<gameController*>(getController())->collWithBlockedCell(this);
-        if (isCollBlockCell) {
+        auto isCollOtherUnit = dynamic_cast<gameController*>(getController())->collWithOtherUnit(this);
+        if (isCollBlockCell || isCollOtherUnit) {
             moveOver = false;
             setY(prevPosY);
             prevPosY = 0;

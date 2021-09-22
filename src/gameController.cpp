@@ -36,18 +36,18 @@ bool gameController::collWithBlockedCell(const unit* checkedUnit) {
 
 bool gameController::collWithOtherUnit(const unit* checkedUnit) {
     bool isCollided;
-    auto xUnit = checkedUnit->getX();
-    auto yUnit = checkedUnit->getY();
-    auto wUnit = checkedUnit->getWidth();
-    auto hUnit = checkedUnit->getHeight();
+    auto xUnit = checkedUnit->getX() - 2;
+    auto yUnit = checkedUnit->getY() - 2;
+    auto wUnit = checkedUnit->getWidth() - 8;
+    auto hUnit = checkedUnit->getHeight() - 8;
     for (size_t i = 0; i < allUnits.size(); ++i) {
         auto checkUnitID = checkedUnit->getID();
         auto otherUnitID = allUnits.at(i)->getID();
         if (checkUnitID != otherUnitID) {
-            auto xOtherUnit = allUnits.at(i)->getX();
-            auto yOtherUnit = allUnits.at(i)->getY();
-            auto wOtherUnit = allUnits.at(i)->getWidth();
-            auto hOtherUnit = allUnits.at(i)->getHeight();
+            auto xOtherUnit = allUnits.at(i)->getX() + 2;
+            auto yOtherUnit = allUnits.at(i)->getY() + 2;
+            auto wOtherUnit = allUnits.at(i)->getWidth() - 10;
+            auto hOtherUnit = allUnits.at(i)->getHeight() - 10;
             isCollided = collision(xUnit, yUnit, wUnit, hUnit, xOtherUnit, yOtherUnit, wOtherUnit, hOtherUnit);
             if (isCollided) {
                 std::cout << i << std::endl;
@@ -58,9 +58,9 @@ bool gameController::collWithOtherUnit(const unit* checkedUnit) {
     return false;
 }
 
-void gameController::addUnits(std::vector<unit*> gotUnits) {
-    allUnits.reserve(allUnits.size() + gotUnits.size());
-    allUnits.insert(allUnits.end(), gotUnits.begin(), gotUnits.end());
+void gameController::addUnits(std::vector<unit*> gotUnit) {
+    allUnits.reserve(allUnits.size() + gotUnit.size());
+    allUnits.insert(allUnits.end(), gotUnit.begin(), gotUnit.end());
 }
 
 void gameController::addBlockedCells(sf::Vector2f vecCooords, sf::Vector2f vecSize) {
