@@ -14,6 +14,10 @@ void gameController::notify(GameObject *object, std::string event) {
 
 }
 
+void gameController::reset() {
+    allUnits.clear();
+}
+
 bool gameController::collWithBlockedCell(const unit* checkedUnit) {
     bool isCollided;
     auto xUnit = checkedUnit->getX() - 2;
@@ -35,7 +39,7 @@ bool gameController::collWithBlockedCell(const unit* checkedUnit) {
 }
 
 bool gameController::collWithOtherUnit(const unit* checkedUnit) {
-    bool isCollided;
+    bool isCollided {false};
     auto xUnit = checkedUnit->getX() - 2;
     auto yUnit = checkedUnit->getY() - 2;
     auto wUnit = checkedUnit->getWidth() - 8;

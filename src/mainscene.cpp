@@ -4,6 +4,8 @@
 #include <random>
 #include <ctime>
 #include <algorithm>
+#include "imgui-SFML.h"
+#include "imgui.h"
 
 mainScene::mainScene(sf::RenderWindow* window)
     : renWindow(window) {
@@ -20,8 +22,15 @@ mainScene::~mainScene() {
 }
 
 void mainScene::init() {
+    fontMain.loadFromFile("../data/Fonts/font.ttf");
+    textWin.setFont(fontMain);
+    textWin.setString("You win");
+    textWin.setCharacterSize(64);
+    textWin.setFillColor(sf::Color::Green);
+    textWin.setPosition({100, 400});
     oFactory = objectsFactory::getInstance();
     gController = new gameController{};
+    isWon = false;
     createField();
     createUnits();
     gController->addUnits(unitsYellow);
@@ -31,6 +40,9 @@ void mainScene::init() {
 }
 
 void mainScene::update(sf::Time deltaTime) {
+    if (isWon) {
+        return;
+    }
     for (auto yUnit : unitsYellow) {
         yUnit->update(deltaTime);
     }
@@ -40,6 +52,7 @@ void mainScene::update(sf::Time deltaTime) {
     for (auto bUnit : unitsBlue) {
         bUnit->update(deltaTime);
     }
+    checkWinPos();
 }
 
 void mainScene::render() {
@@ -58,6 +71,37 @@ void mainScene::render() {
     for (auto exUnit : unitsEx) {
         exUnit->render();
     }
+    renWindow->draw(textWin);
+}
+
+void mainScene::reset() {
+    unitsYellow.clear();
+    unitsRed.clear();
+    unitsBlue.clear();
+    unitsEx.clear();
+    gController->reset();
+    isWon = false;
+    createUnits();
+    createExUnits();
+    gController->addUnits(unitsYellow);
+    gController->addUnits(unitsRed);
+    gController->addUnits(unitsBlue);
+}
+
+void mainScene::createGui() {
+    ImGui::Begin("Interface");
+    ImGui::SetWindowPos({1050, 50});
+    ImGui::SetWindowSize({180, 180});
+    if (ImGui::Button("Reset")) {
+        //reset();
+    }
+    if (ImGui::Button("Rules")){
+
+    }
+    if (ImGui::Button("Close")) {
+
+    }
+    ImGui::End();
 }
 
 void mainScene::createField() {
@@ -122,9 +166,9 @@ void mainScene::createUnits() {
     bool isCreated {false};
     bool allIsCreated {false};
     srand(static_cast<unsigned int>(time(nullptr)));
-    int numUnit = 0;
-    int i = 0;
-    int j = 0;
+    int numUnit {0};
+    int i {0};
+    int j {0};
     while (!allIsCreated)  {
         numUnit = std::rand() % 3;
         if (numUnit == 0) {
@@ -208,11 +252,52 @@ void mainScene::createExUnits() {
         }
         tempUnit->setWindow(renWindow);
         tempUnit->setIsMoving(false);
-        auto posX = 300.f + 130.f * numEx.at(i) * 2.f + 2.f;
-        auto posY = 30.f;
+        auto posX = 300 + 130 * numEx.at(i) * 2 + 2;
+        auto posY = 30;
         tempUnit->setStartPos(posX, posY);
-        tempUnit->setID(std::to_string(i));
+        tempUnit->setID("ex");
         unitsEx.push_back(tempUnit);
+    }
+}
+
+void mainScene::checkWinPos() {
+    bool yellInOneLine {false};
+    bool redInOneLine {false};
+    bool blueInOneLine {false};
+    for (auto exUnit : unitsEx) {
+        auto idEx = exUnit->getID();
+        auto posXEx = exUnit->getX();
+        auto widthEx = exUnit->getWidth();
+        if (idEx == "unit_yellow_ex") {
+            for (auto yellUnit : unitsYellow) {
+                auto posX = yellUnit->getX();
+                if (posX < posXEx && posX > posXEx + widthEx) {
+                    return;
+                }
+            }
+            yellInOneLine = true;
+        }
+        if (idEx == "unit_red_ex") {
+            for (auto redUnit : unitsRed) {
+                auto posX = redUnit->getX();
+                if (posX < posXEx && posX > posXEx + widthEx) {
+                    return;
+                }
+            }
+            redInOneLine = true;
+        }
+        if (idEx == "unit_blue_ex") {
+            for (auto blueUnit : unitsBlue) {
+                auto posX = blueUnit->getX();
+                if (posX < posXEx && posX > posXEx + widthEx) {
+                    return;
+                }
+            }
+            blueInOneLine = true;
+        }
+    }
+    if (yellInOneLine || redInOneLine || blueInOneLine) {
+        isWon = true;
     }
 }
 

@@ -15,6 +15,7 @@ public:
     ~gameController();
     void init();
     void notify(GameObject* object, std::string event) override;
+    void reset();
     bool collWithBlockedCell(const unit* checkedUnit);
     bool collWithOtherUnit(const unit* checkedUnit);
     bool collision(int aX, int aY, int aW, int aH, int bX, int bY, int bW, int bH);

@@ -14,15 +14,20 @@ public:
     void init();
     void update(sf::Time deltaTime);
     void render();
+    void reset();
+    void createGui();
     void createField();
     void createUnits();
     void createExUnits();
+    void checkWinPos();
     void handleEvents(sf::Mouse::Button button);
 private:
     const int COUNT_OF_CELLS = 5;
     const int COUNT_OF_UNITS = 5;
 
     sf::RenderWindow* renWindow;
+    sf::Font fontMain;
+    sf::Text textWin;
     std::map<std::string, sf::RectangleShape*> cells;
     std::vector<unit*> unitsYellow;
     std::vector<unit*> unitsRed;
@@ -30,5 +35,7 @@ private:
     std::vector<unit*> unitsEx;
     gameController* gController;
     objectsFactory* oFactory;
+
+    bool isWon;
 };
 
