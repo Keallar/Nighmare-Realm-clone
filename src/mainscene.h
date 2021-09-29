@@ -6,6 +6,7 @@
 #include "gameController.h"
 #include "objectsFactory.h"
 #include "unit.h"
+#include "rules.h"
 
 class mainScene {
 public:
@@ -18,7 +19,9 @@ public:
     void createGui();
     void createField();
     void createUnits();
+    void createUnitsGarb();
     void createExUnits();
+    void createExUnitsGarb();
     void checkWinPos();
     void handleEvents(sf::Mouse::Button button);
 private:
@@ -35,7 +38,8 @@ private:
     std::vector<unit*> unitsEx;
     gameController* gController;
     objectsFactory* oFactory;
-
+    rules* rulObj;
     bool isWon;
+    bool isRules;
 };
 

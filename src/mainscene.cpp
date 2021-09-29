@@ -22,21 +22,26 @@ mainScene::~mainScene() {
 }
 
 void mainScene::init() {
-    fontMain.loadFromFile("../data/Fonts/font.ttf");
+    fontMain.loadFromFile("../data/fonts/font.ttf");
     textWin.setFont(fontMain);
     textWin.setString("You win");
     textWin.setCharacterSize(64);
     textWin.setFillColor(sf::Color::Green);
-    textWin.setPosition({100, 400});
+    textWin.setPosition({30, 400});
     oFactory = objectsFactory::getInstance();
     gController = new gameController{};
     isWon = false;
+    isRules = false;
     createField();
-    createUnits();
+    //createUnits();
+    createUnitsGarb();
     gController->addUnits(unitsYellow);
     gController->addUnits(unitsRed);
     gController->addUnits(unitsBlue);
-    createExUnits();
+    //createExUnits();
+    createExUnitsGarb();
+    rulObj = new rules(renWindow);
+    rulObj->init();
 }
 
 void mainScene::update(sf::Time deltaTime) {
@@ -52,7 +57,9 @@ void mainScene::update(sf::Time deltaTime) {
     for (auto bUnit : unitsBlue) {
         bUnit->update(deltaTime);
     }
-    checkWinPos();
+    if (!isWon) {
+        checkWinPos();
+    }
 }
 
 void mainScene::render() {
@@ -71,7 +78,12 @@ void mainScene::render() {
     for (auto exUnit : unitsEx) {
         exUnit->render();
     }
-    renWindow->draw(textWin);
+    if (isWon) {
+        renWindow->draw(textWin);
+    }
+    if (isRules) {
+        rulObj->render();
+    }
 }
 
 void mainScene::reset() {
@@ -81,8 +93,10 @@ void mainScene::reset() {
     unitsEx.clear();
     gController->reset();
     isWon = false;
-    createUnits();
-    createExUnits();
+    //createUnits();
+    createUnitsGarb();
+    //createExUnits();
+    createExUnitsGarb();
     gController->addUnits(unitsYellow);
     gController->addUnits(unitsRed);
     gController->addUnits(unitsBlue);
@@ -93,20 +107,27 @@ void mainScene::createGui() {
     ImGui::SetWindowPos({1050, 50});
     ImGui::SetWindowSize({180, 180});
     if (ImGui::Button("Reset")) {
-        //reset();
+        reset();
     }
     if (ImGui::Button("Rules")){
+        if (isRules) {
+            isRules = false;
 
+        }
+        if (!isRules) {
+            isRules = true;
+
+        }
     }
     if (ImGui::Button("Close")) {
-
+        renWindow->close();
     }
     ImGui::End();
 }
 
 void mainScene::createField() {
-    for (size_t i = 0; i < COUNT_OF_CELLS; ++i) {
-        for (size_t j = 0; j < COUNT_OF_CELLS; ++j) {
+    for (int i = 0; i < COUNT_OF_CELLS; ++i) {
+        for (int j = 0; j < COUNT_OF_CELLS; ++j) {
             auto tempCell = new sf::RectangleShape{};
             sf::Vector2f cellSize {130.0f, 130.0f};
             sf::Vector2f cellPos {300.0f + (130.0f * i), 200.0f + (130.f * j)};
@@ -236,6 +257,75 @@ void mainScene::createUnits() {
     }
 }
 
+void mainScene::createUnitsGarb() {
+    bool yellIsFull {false};
+    bool redIsFull {false};
+    bool blueIsFull {false};
+    for (int i = 0; i < COUNT_OF_UNITS; ++i) {
+        if (i == 1) {
+            auto yellUnit = oFactory->createYellowUnit();
+            yellUnit->setWindow(renWindow);
+            yellUnit->setIsMoving(true);
+            auto posX = 300 + 130 * 1 + 2;
+            auto posY = 200 + 130 * i + 2;
+            yellUnit->setStartPos(posX, posY);
+            yellUnit->setID(std::to_string(0) + std::to_string(i));
+            yellUnit->setController(gController);
+            unitsYellow.push_back(yellUnit);
+        } else {
+            auto yellUnit = oFactory->createYellowUnit();
+            yellUnit->setWindow(renWindow);
+            yellUnit->setIsMoving(true);
+            auto posX = 300 + 130 * 0 * 2 + 2;
+            auto posY = 200 + 130 * i + 2;
+            yellUnit->setStartPos(posX, posY);
+            yellUnit->setID(std::to_string(0) + std::to_string(i));
+            yellUnit->setController(gController);
+            unitsYellow.push_back(yellUnit);
+        }
+    }
+    yellIsFull = true;
+    for (int j = 0; j < COUNT_OF_UNITS; ++j) {
+        if (j == 3) {
+            auto redUnit = oFactory->createRedUnit();
+            redUnit->setWindow(renWindow);
+            redUnit->setIsMoving(true);
+            auto posX = 300 + 130 * 3 + 2;
+            auto posY = 200 + 130 * j + 2;
+            redUnit->setStartPos(posX, posY);
+            redUnit->setID(std::to_string(2) + std::to_string(j));
+            redUnit->setController(gController);
+            unitsRed.push_back(redUnit);
+        } else {
+            auto redUnit = oFactory->createRedUnit();
+            redUnit->setWindow(renWindow);
+            redUnit->setIsMoving(true);
+            auto posX = 300 + 130 * 1 * 2 + 2;
+            auto posY = 200 + 130 * j + 2;
+            redUnit->setStartPos(posX, posY);
+            redUnit->setID(std::to_string(2) + std::to_string(j));
+            redUnit->setController(gController);
+            unitsRed.push_back(redUnit);
+        }
+    }
+    redIsFull = true;
+    for (int k = 0; k < COUNT_OF_UNITS; ++k) {
+        auto blueUnit = oFactory->createBlueUnit();
+        blueUnit->setWindow(renWindow);
+        blueUnit->setIsMoving(true);
+        auto posX = 300 + 130 * 2 * 2 + 2;
+        auto posY = 200 + 130 * k + 2;
+        blueUnit->setStartPos(posX, posY);
+        blueUnit->setID(std::to_string(5) + std::to_string(k));
+        blueUnit->setController(gController);
+        unitsBlue.push_back(blueUnit);
+    }
+    blueIsFull = true;
+    if (yellIsFull && redIsFull && blueIsFull) {
+        return;
+    }
+}
+
 void mainScene::createExUnits() {
     std::vector<int> numEx {0, 1, 2};
     std::random_shuffle(numEx.begin(), numEx.end());
@@ -260,43 +350,108 @@ void mainScene::createExUnits() {
     }
 }
 
+void mainScene::createExUnitsGarb() {
+    std::vector<int> numEx {0, 1, 2};
+    for (int i = 0; i < 3; ++i) {
+        unit* tempUnit;
+        if (i == 0) {
+            tempUnit = oFactory->createYellowUnit();
+        }
+        if (i == 1) {
+            tempUnit = oFactory->createRedUnit();
+        }
+        if (i == 2) {
+            tempUnit = oFactory->createBlueUnit();
+        }
+        tempUnit->setWindow(renWindow);
+        tempUnit->setIsMoving(false);
+        auto posX = 300 + 130 * numEx.at(i) * 2 + 2;
+        auto posY = 30;
+        tempUnit->setStartPos(posX, posY);
+        tempUnit->setID("ex");
+        unitsEx.push_back(tempUnit);
+    }
+}
+
 void mainScene::checkWinPos() {
     bool yellInOneLine {false};
+    int checkedYell {0};
     bool redInOneLine {false};
+    int checkedRed {0};
     bool blueInOneLine {false};
+    int checkedBlue {0};
     for (auto exUnit : unitsEx) {
         auto idEx = exUnit->getID();
-        auto posXEx = exUnit->getX();
-        auto widthEx = exUnit->getWidth();
+        int posXEx = exUnit->getX();
+        int widthEx = exUnit->getWidth();
         if (idEx == "unit_yellow_ex") {
+            idEx.pop_back();
+            idEx.pop_back();
+            idEx.pop_back();
             for (auto yellUnit : unitsYellow) {
-                auto posX = yellUnit->getX();
-                if (posX < posXEx && posX > posXEx + widthEx) {
-                    return;
+                auto idYellUn = yellUnit->getID();
+                idYellUn.pop_back();
+                idYellUn.pop_back();
+                idYellUn.pop_back();
+                if (idYellUn == idEx) {
+                    int posX = yellUnit->getX();
+                    int width = 127;
+                    if (posX >= posXEx && posX + width <= posXEx + widthEx) {
+                        checkedYell++;
+                    }
                 }
+            }
+            if (checkedYell != 5) {
+                return;
             }
             yellInOneLine = true;
         }
         if (idEx == "unit_red_ex") {
+            idEx.pop_back();
+            idEx.pop_back();
+            idEx.pop_back();
             for (auto redUnit : unitsRed) {
-                auto posX = redUnit->getX();
-                if (posX < posXEx && posX > posXEx + widthEx) {
-                    return;
+                auto idRedUn = redUnit->getID();
+                idRedUn.pop_back();
+                idRedUn.pop_back();
+                idRedUn.pop_back();
+                if (idRedUn == idEx) {
+                    int posX = redUnit->getX();
+                    int width = 127;
+                    if (posX >= posXEx && posX + width <= posXEx + widthEx) {
+                        checkedRed++;
+                    }
                 }
+            }
+            if (checkedRed != 5) {
+                return;
             }
             redInOneLine = true;
         }
         if (idEx == "unit_blue_ex") {
+            idEx.pop_back();
+            idEx.pop_back();
+            idEx.pop_back();
             for (auto blueUnit : unitsBlue) {
-                auto posX = blueUnit->getX();
-                if (posX < posXEx && posX > posXEx + widthEx) {
-                    return;
+                auto idBlueUn = blueUnit->getID();
+                idBlueUn.pop_back();
+                idBlueUn.pop_back();
+                idBlueUn.pop_back();
+                if (idBlueUn == idEx) {
+                    int posX = blueUnit->getX();
+                    int width = 127;
+                    if (posX >= posXEx && posX + width <= posXEx + widthEx) {
+                        checkedBlue++;
+                    }
                 }
+            }
+            if (checkedBlue != 5) {
+                return;
             }
             blueInOneLine = true;
         }
     }
-    if (yellInOneLine || redInOneLine || blueInOneLine) {
+    if (yellInOneLine == true && redInOneLine == true && blueInOneLine == true) {
         isWon = true;
     }
 }

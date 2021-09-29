@@ -1,3 +1,0 @@
-C:/Users/evgen/source/SFML_projects/WARGAMING_test_exrcise/cmake-build-debug/CMakeFiles/WARGAMING_test_exrcise.dir
-C:/Users/evgen/source/SFML_projects/WARGAMING_test_exrcise/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/evgen/source/SFML_projects/WARGAMING_test_exrcise/cmake-build-debug/CMakeFiles/rebuild_cache.dir
