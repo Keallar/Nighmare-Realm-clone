@@ -98,9 +98,7 @@ void mainScene::reset() {
     gController->reset();
     isWon = false;
     createUnits();
-    //createUnitsGarb();
     createExUnits();
-    //createExUnitsGarb();
     gController->addUnits(unitsYellow);
     gController->addUnits(unitsRed);
     gController->addUnits(unitsBlue);

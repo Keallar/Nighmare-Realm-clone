@@ -38,7 +38,7 @@ private:
     bool moveOver;
     float speed;
     int nextPosX;
-    int prevPosX; //???
+    int prevPosX;
     int prevPosY;
     int nextPosY;
     eDirection dir;

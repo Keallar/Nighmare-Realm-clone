@@ -1,0 +1,17 @@
+# ninja log v5
+48	2598	6546564523336790	CMakeFiles/WARGAMING_test_exrcise.dir/src/objectsFactory.cpp.obj	5c74a6f94c57fef8
+1	2634	6546564523866722	CMakeFiles/WARGAMING_test_exrcise.dir/src/gameController.cpp.obj	1d924909b935d92b
+19	2656	6546564524276877	CMakeFiles/WARGAMING_test_exrcise.dir/src/loop.cpp.obj	7d68164270f76236
+68	2844	6546564526156604	CMakeFiles/WARGAMING_test_exrcise.dir/src/main.cpp.obj	1dc10aaccea12d05
+101	2930	6546564526956593	CMakeFiles/WARGAMING_test_exrcise.dir/src/rules.cpp.obj	c61061cec3d004fa
+84	3269	6546564530415121	CMakeFiles/WARGAMING_test_exrcise.dir/src/unit.cpp.obj	d709def8e7902d2
+33	3720	6546564535117105	CMakeFiles/WARGAMING_test_exrcise.dir/src/mainscene.cpp.obj	436443f26518c49e
+142	3768	6546564535685584	thirdParty/include/imgui/CMakeFiles/imgui.dir/imgui_demo.cpp.obj	ae6e1ab259f5221e
+193	4207	6546564540078261	thirdParty/include/imgui/CMakeFiles/imgui.dir/imgui_tables.cpp.obj	2e602e9b1fd00887
+2605	5603	6546564554058033	thirdParty/include/imgui/CMakeFiles/imgui.dir/imgui_draw.cpp.obj	201777c3998bbaaa
+124	5644	6546564554412950	thirdParty/include/imgui/CMakeFiles/imgui.dir/imgui.cpp.obj	e0226e897cf1498f
+2657	5845	6546564556507483	thirdParty/include/imgui/CMakeFiles/imgui.dir/imgui-SFML.cpp.obj	4e9d327e60b5e69d
+2635	5914	6546564557181538	thirdParty/include/imgui/CMakeFiles/imgui.dir/imgui_widgets.cpp.obj	1d7585eb030ddcb2
+5915	6528	6546564563289826	thirdParty/include/imgui/libimgui.dll	a195e8a4c7d602be
+5915	6528	6546564563289826	thirdParty/include/imgui/libimgui.dll.a	a195e8a4c7d602be
+6528	7000	6546564568024600	WARGAMING_test_exrcise.exe	e0f0da8886c79f5c
