@@ -18,7 +18,7 @@ void rules::init() {
 "\taccordance with the example\n"
 "\tchips.";
     textRul.setString(strText);
-    textRul.setCharacterSize(32);
+    textRul.setCharacterSize(42);
     textRul.setFillColor(sf::Color::Black);
     textRul.setPosition({300, 300});
 }

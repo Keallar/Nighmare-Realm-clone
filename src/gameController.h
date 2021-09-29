@@ -13,8 +13,7 @@ class gameController : public MainController {
 public:
     gameController() = default;
     ~gameController();
-    void init();
-    void notify(GameObject* object, std::string event) override;
+    void notify(GameObject* object, std::string event);
     void reset();
     bool collWithBlockedCell(const unit* checkedUnit);
     bool collWithOtherUnit(const unit* checkedUnit);

@@ -24,10 +24,6 @@ void unit::update(sf::Time time) {
     moving(time);
 }
 
-void unit::reset() {
-
-}
-
 void unit::moving(sf::Time time) {
     chooseUnit();
     if (!moveOver) {
@@ -52,7 +48,6 @@ void unit::checkMouse(sf::Mouse::Button button) {
         auto isMouseOverObj = unitCirc.getGlobalBounds().contains(mousePos);
         if (isMouseOverObj) {
             isPressed = true;
-            //std::cout << mousePos.x << " " << mousePos.y << std::endl;
             return;
         }
         isPressed = false;
@@ -79,12 +74,12 @@ void unit::checkLeft() {
         return;
     }
     auto isPressedA = sf::Keyboard::isKeyPressed(sf::Keyboard::A);
-    if (isPressedA) {
+    auto isPressedLeft = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
+    if (isPressedA || isPressedLeft) {
         dir = eDirection::Left;
         nextPosX = getX() - getRadius() * 2 - 4;
         prevPosX = getX();
         moveOver = true;
-        //std::cout << nextPosX << std::endl;
     }
 }
 
@@ -93,12 +88,12 @@ void unit::checkRight() {
         return;
     }
     auto isPressedD = sf::Keyboard::isKeyPressed(sf::Keyboard::D);
-    if (isPressedD) {
+    auto isPressedRight = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+    if (isPressedD || isPressedRight) {
         dir = eDirection::Right;
         nextPosX = getX() + getRadius() * 2 + 4;
         prevPosX = getX();
         moveOver = true;
-        //std::cout << nextPosX << std::endl;
     }
 }
 
@@ -107,12 +102,12 @@ void unit::checkUp() {
         return;
     }
     auto isPressedW = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-    if (isPressedW) {
+    auto isPressedUp = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
+    if (isPressedW || isPressedUp) {
         dir = eDirection::Up;
         nextPosY = getY() - getRadius() * 2 - 4;
         prevPosY = getY();
         moveOver = true;
-        //std::cout << nextPosY << std::endl;
     }
 }
 
@@ -121,12 +116,12 @@ void unit::checkBottom() {
         return;
     }
     auto isPressedS = sf::Keyboard::isKeyPressed(sf::Keyboard::S);
-    if (isPressedS) {
+    auto isPressedDown = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
+    if (isPressedS || isPressedDown) {
         dir = eDirection::Bottom;
         nextPosY = getY() + getRadius() * 2 + 4;
         prevPosY = getY();
         moveOver = true;
-        //std::cout << nextPosY << std::endl;
     }
 }
 
@@ -140,7 +135,6 @@ void unit::moveToLeft(float motion) {
             prevPosX = 0;
             nextPosX = 0;
             dir = eDirection::Nowhere;
-            std::cout << "Blocked Left" << std::endl;
             return;
         }
         if (nextPosX <= 172.f) {
@@ -174,7 +168,6 @@ void unit::moveToRight(float motion) {
             prevPosX = 0;
             nextPosX = 0;
             dir = eDirection::Nowhere;
-            std::cout << "Blocked Right" << std::endl;
             return;
         }
         if (nextPosX >= 952.f) {
@@ -208,7 +201,6 @@ void unit::moveToUp(float motion) {
             prevPosY = 0;
             nextPosX = 0;
             dir = eDirection::Nowhere;
-            std::cout << "Blocked Up" << std::endl;
             return;
         }
         if (nextPosY <= 72.f) {
@@ -242,7 +234,6 @@ void unit::moveToBottom(float motion) {
             prevPosY = 0;
             nextPosX = 0;
             dir = eDirection::Nowhere;
-            std::cout << "Blocked Bottom" << std::endl;
             return;
         }
         if (nextPosY >= 820.f) {

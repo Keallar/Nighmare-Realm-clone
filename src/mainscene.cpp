@@ -24,22 +24,27 @@ mainScene::~mainScene() {
 void mainScene::init() {
     fontMain.loadFromFile("../data/fonts/font.ttf");
     textWin.setFont(fontMain);
-    textWin.setString("You win");
-    textWin.setCharacterSize(64);
-    textWin.setFillColor(sf::Color::Green);
-    textWin.setPosition({30, 400});
+    textWin.setString(" You \n win!\nPress\nReset\n   to\nrestart\n game");
+    textWin.setCharacterSize(65);
+    textWin.setFillColor(sf::Color::Black);
+    textWin.setPosition({50, 240});
+    textControll.setFont(fontMain);
+    textControll.setString("Controlling:\n A - move left\n D - move right\n W - move up\n S - move down\n Cursor and click-\n choose a chip");
+    textControll.setCharacterSize(30);
+    textControll.setFillColor(sf::Color::Black);
+    textControll.setPosition({1000, 400});
     oFactory = objectsFactory::getInstance();
     gController = new gameController{};
     isWon = false;
     isRules = false;
     createField();
-    //createUnits();
-    createUnitsGarb();
+    createUnits();
+    //createUnitsGarb();
     gController->addUnits(unitsYellow);
     gController->addUnits(unitsRed);
     gController->addUnits(unitsBlue);
-    //createExUnits();
-    createExUnitsGarb();
+    createExUnits();
+    //createExUnitsGarb();
     rulObj = new rules(renWindow);
     rulObj->init();
 }
@@ -84,6 +89,7 @@ void mainScene::render() {
     if (isRules) {
         rulObj->render();
     }
+    renWindow->draw(textControll);
 }
 
 void mainScene::reset() {
@@ -93,10 +99,10 @@ void mainScene::reset() {
     unitsEx.clear();
     gController->reset();
     isWon = false;
-    //createUnits();
-    createUnitsGarb();
-    //createExUnits();
-    createExUnitsGarb();
+    createUnits();
+    //createUnitsGarb();
+    createExUnits();
+    //createExUnitsGarb();
     gController->addUnits(unitsYellow);
     gController->addUnits(unitsRed);
     gController->addUnits(unitsBlue);
@@ -112,11 +118,8 @@ void mainScene::createGui() {
     if (ImGui::Button("Rules")){
         if (isRules) {
             isRules = false;
-
-        }
-        if (!isRules) {
+        } else {
             isRules = true;
-
         }
     }
     if (ImGui::Button("Close")) {

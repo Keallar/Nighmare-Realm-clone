@@ -14,7 +14,6 @@ public:
     unit() = default;
     void init() override;
     void update(sf::Time time) override;
-    void reset();
     void moving(sf::Time time);
     int getNextPosX();
     int getNextPosY();

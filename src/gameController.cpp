@@ -6,10 +6,6 @@ gameController::~gameController() {
     blockedCells.clear();
 }
 
-void init() {
-
-}
-
 void gameController::notify(GameObject *object, std::string event) {
 
 }
@@ -31,7 +27,6 @@ bool gameController::collWithBlockedCell(const unit* checkedUnit) {
         auto hBlCell = blockedCells.at(i).second.y - 2;
         isCollided = collision(xUnit, yUnit, wUnit, hUnit, xBlCell, yBlCell, wBlCell, hBlCell);
         if (isCollided) {
-            //std::cout << i << std::endl;
             return true;
         }
     }
@@ -54,7 +49,6 @@ bool gameController::collWithOtherUnit(const unit* checkedUnit) {
             auto hOtherUnit = allUnits.at(i)->getHeight() - 10;
             isCollided = collision(xUnit, yUnit, wUnit, hUnit, xOtherUnit, yOtherUnit, wOtherUnit, hOtherUnit);
             if (isCollided) {
-                std::cout << i << std::endl;
                 return true;
             }
         }

@@ -31,6 +31,7 @@ private:
     sf::RenderWindow* renWindow;
     sf::Font fontMain;
     sf::Text textWin;
+    sf::Text textControll;
     std::map<std::string, sf::RectangleShape*> cells;
     std::vector<unit*> unitsYellow;
     std::vector<unit*> unitsRed;
