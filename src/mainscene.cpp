@@ -39,12 +39,10 @@ void mainScene::init() {
     isRules = false;
     createField();
     createUnits();
-    //createUnitsGarb();
     gController->addUnits(unitsYellow);
     gController->addUnits(unitsRed);
     gController->addUnits(unitsBlue);
     createExUnits();
-    //createExUnitsGarb();
     rulObj = new rules(renWindow);
     rulObj->init();
 }
@@ -260,101 +258,9 @@ void mainScene::createUnits() {
     }
 }
 
-void mainScene::createUnitsGarb() {
-    bool yellIsFull {false};
-    bool redIsFull {false};
-    bool blueIsFull {false};
-    for (int i = 0; i < COUNT_OF_UNITS; ++i) {
-        if (i == 1) {
-            auto yellUnit = oFactory->createYellowUnit();
-            yellUnit->setWindow(renWindow);
-            yellUnit->setIsMoving(true);
-            auto posX = 300 + 130 * 1 + 2;
-            auto posY = 200 + 130 * i + 2;
-            yellUnit->setStartPos(posX, posY);
-            yellUnit->setID(std::to_string(0) + std::to_string(i));
-            yellUnit->setController(gController);
-            unitsYellow.push_back(yellUnit);
-        } else {
-            auto yellUnit = oFactory->createYellowUnit();
-            yellUnit->setWindow(renWindow);
-            yellUnit->setIsMoving(true);
-            auto posX = 300 + 130 * 0 * 2 + 2;
-            auto posY = 200 + 130 * i + 2;
-            yellUnit->setStartPos(posX, posY);
-            yellUnit->setID(std::to_string(0) + std::to_string(i));
-            yellUnit->setController(gController);
-            unitsYellow.push_back(yellUnit);
-        }
-    }
-    yellIsFull = true;
-    for (int j = 0; j < COUNT_OF_UNITS; ++j) {
-        if (j == 3) {
-            auto redUnit = oFactory->createRedUnit();
-            redUnit->setWindow(renWindow);
-            redUnit->setIsMoving(true);
-            auto posX = 300 + 130 * 3 + 2;
-            auto posY = 200 + 130 * j + 2;
-            redUnit->setStartPos(posX, posY);
-            redUnit->setID(std::to_string(2) + std::to_string(j));
-            redUnit->setController(gController);
-            unitsRed.push_back(redUnit);
-        } else {
-            auto redUnit = oFactory->createRedUnit();
-            redUnit->setWindow(renWindow);
-            redUnit->setIsMoving(true);
-            auto posX = 300 + 130 * 1 * 2 + 2;
-            auto posY = 200 + 130 * j + 2;
-            redUnit->setStartPos(posX, posY);
-            redUnit->setID(std::to_string(2) + std::to_string(j));
-            redUnit->setController(gController);
-            unitsRed.push_back(redUnit);
-        }
-    }
-    redIsFull = true;
-    for (int k = 0; k < COUNT_OF_UNITS; ++k) {
-        auto blueUnit = oFactory->createBlueUnit();
-        blueUnit->setWindow(renWindow);
-        blueUnit->setIsMoving(true);
-        auto posX = 300 + 130 * 2 * 2 + 2;
-        auto posY = 200 + 130 * k + 2;
-        blueUnit->setStartPos(posX, posY);
-        blueUnit->setID(std::to_string(5) + std::to_string(k));
-        blueUnit->setController(gController);
-        unitsBlue.push_back(blueUnit);
-    }
-    blueIsFull = true;
-    if (yellIsFull && redIsFull && blueIsFull) {
-        return;
-    }
-}
-
 void mainScene::createExUnits() {
     std::vector<int> numEx {0, 1, 2};
     std::random_shuffle(numEx.begin(), numEx.end());
-    for (int i = 0; i < 3; ++i) {
-        unit* tempUnit;
-        if (i == 0) {
-            tempUnit = oFactory->createYellowUnit();
-        }
-        if (i == 1) {
-            tempUnit = oFactory->createRedUnit();
-        }
-        if (i == 2) {
-            tempUnit = oFactory->createBlueUnit();
-        }
-        tempUnit->setWindow(renWindow);
-        tempUnit->setIsMoving(false);
-        auto posX = 300 + 130 * numEx.at(i) * 2 + 2;
-        auto posY = 30;
-        tempUnit->setStartPos(posX, posY);
-        tempUnit->setID("ex");
-        unitsEx.push_back(tempUnit);
-    }
-}
-
-void mainScene::createExUnitsGarb() {
-    std::vector<int> numEx {0, 1, 2};
     for (int i = 0; i < 3; ++i) {
         unit* tempUnit;
         if (i == 0) {

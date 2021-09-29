@@ -19,9 +19,7 @@ public:
     void createGui();
     void createField();
     void createUnits();
-    void createUnitsGarb();
     void createExUnits();
-    void createExUnitsGarb();
     void checkWinPos();
     void handleEvents(sf::Mouse::Button button);
 private:
